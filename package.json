@@ -39,6 +39,10 @@
 	"type": "module",
 	"dependencies": {
 		"@prismicio/client": "^7.3.1",
-		"@prismicio/svelte": "^1.0.3"
+		"@prismicio/svelte": "^1.0.3",
+		"clsx": "^2.1.0",
+		"lucide-svelte": "^0.306.0",
+		"tailwind-merge": "^2.2.0",
+		"tailwind-variants": "^0.1.20"
 	}
 }
