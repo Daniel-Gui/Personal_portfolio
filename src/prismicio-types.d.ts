@@ -4,7 +4,7 @@ import type * as prismic from '@prismicio/client';
 
 type Simplify<T> = { [KeyType in keyof T]: T[KeyType] };
 
-type PageDocumentDataSlicesSlice = RichTextSlice;
+type PageDocumentDataSlicesSlice = HeaderSlice;
 
 /**
  * Content for Page documents
@@ -30,8 +30,7 @@ interface PageDocumentData {
 	 * - **Tab**: Main
 	 * - **Documentation**: https://prismic.io/docs/field#slices
 	 */
-	slices: prismic.SliceZone<PageDocumentDataSlicesSlice>;
-	/**
+	slices: prismic.SliceZone<PageDocumentDataSlicesSlice> /**
 	 * Meta Title field in *Page*
 	 *
 	 * - **Field Type**: Text
@@ -39,7 +38,7 @@ interface PageDocumentData {
 	 * - **API ID Path**: page.meta_title
 	 * - **Tab**: SEO & Metadata
 	 * - **Documentation**: https://prismic.io/docs/field#key-text
-	 */
+	 */;
 	meta_title: prismic.KeyTextField;
 
 	/**
@@ -83,46 +82,66 @@ export type PageDocument<Lang extends string = string> = prismic.PrismicDocument
 export type AllDocumentTypes = PageDocument;
 
 /**
- * Primary content in *RichText → Primary*
+ * Primary content in *Header → Primary*
  */
-export interface RichTextSliceDefaultPrimary {
+export interface HeaderSliceDefaultPrimary {
 	/**
-	 * Content field in *RichText → Primary*
+	 * Titulo de apresentação field in *Header → Primary*
 	 *
 	 * - **Field Type**: Rich Text
-	 * - **Placeholder**: Lorem ipsum...
-	 * - **API ID Path**: rich_text.primary.content
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: header.primary.title_presentation
 	 * - **Documentation**: https://prismic.io/docs/field#rich-text-title
 	 */
-	content: prismic.RichTextField;
+	title_presentation: prismic.RichTextField;
+
+	/**
+	 * Descrição da minha região field in *Header → Primary*
+	 *
+	 * - **Field Type**: Rich Text
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: header.primary.location_description
+	 * - **Documentation**: https://prismic.io/docs/field#rich-text-title
+	 */
+	location_description: prismic.RichTextField;
+
+	/**
+	 * Imagem principal field in *Header → Primary*
+	 *
+	 * - **Field Type**: Image
+	 * - **Placeholder**: *None*
+	 * - **API ID Path**: header.primary.Image_represents
+	 * - **Documentation**: https://prismic.io/docs/field#image
+	 */
+	Image_represents: prismic.ImageField<never>;
 }
 
 /**
- * Default variation for RichText Slice
+ * Default variation for Header Slice
  *
  * - **API ID**: `default`
- * - **Description**: RichText
+ * - **Description**: Default
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type RichTextSliceDefault = prismic.SharedSliceVariation<
+export type HeaderSliceDefault = prismic.SharedSliceVariation<
 	'default',
-	Simplify<RichTextSliceDefaultPrimary>,
+	Simplify<HeaderSliceDefaultPrimary>,
 	never
 >;
 
 /**
- * Slice variation for *RichText*
+ * Slice variation for *Header*
  */
-type RichTextSliceVariation = RichTextSliceDefault;
+type HeaderSliceVariation = HeaderSliceDefault;
 
 /**
- * RichText Shared Slice
+ * Header Shared Slice
  *
- * - **API ID**: `rich_text`
- * - **Description**: RichText
+ * - **API ID**: `header`
+ * - **Description**: Header
  * - **Documentation**: https://prismic.io/docs/slice
  */
-export type RichTextSlice = prismic.SharedSlice<'rich_text', RichTextSliceVariation>;
+export type HeaderSlice = prismic.SharedSlice<'header', HeaderSliceVariation>;
 
 declare module '@prismicio/client' {
 	interface CreateClient {
@@ -138,10 +157,10 @@ declare module '@prismicio/client' {
 			PageDocumentData,
 			PageDocumentDataSlicesSlice,
 			AllDocumentTypes,
-			RichTextSlice,
-			RichTextSliceDefaultPrimary,
-			RichTextSliceVariation,
-			RichTextSliceDefault
+			HeaderSlice,
+			HeaderSliceDefaultPrimary,
+			HeaderSliceVariation,
+			HeaderSliceDefault
 		};
 	}
 }
